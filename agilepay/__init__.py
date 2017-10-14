@@ -41,4 +41,4 @@ Basic usage :
 
 """
 
-from agilepay import AgilePay
+from .agilepay import AgilePay

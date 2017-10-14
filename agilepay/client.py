@@ -1,14 +1,18 @@
+import sys
 import hmac
 import platform
 import requests
 
 from time import time
 from hashlib import sha256
-from urllib import urlencode
+try:
+    from urllib import urlencode
+except ImportError:
+    from urllib.parse import urlencode
 from base64 import b64encode
 
 # internal module imports
-import errors
+from .errors import *
 from .responses import Response
 from .helpers import dict_to_json
 from .constants import API_VERSION, SDK_VERSION, ENV_LOCAL, ENV_TESTING, ENV_PRODUCTION
@@ -34,7 +38,7 @@ class Client:
         :return: None
         """
 
-        if not config.has_key('environment'):
+        if 'environment' not in config:
             config['environment'] = ENV_PRODUCTION
 
         self._validate_config(config)
@@ -143,17 +147,17 @@ class Client:
         if http_code in [200, 201, 204]:
             return Response(response)
         elif http_code == 401:
-            raise errors.UnauthorizedError()
+            raise UnauthorizedError()
         elif http_code == 403:
-            raise errors.ForbiddenError()
+            raise ForbiddenError()
         elif http_code == 422:
-            raise errors.UnprocessableEntityError(response.text)
+            raise UnprocessableEntityError(response.text)
         elif http_code == 429:
             rate_limit = response.headers['X-Ratelimit-Limit']
             rate_reset = response.headers['X-Ratelimit-Reset']
-            raise errors.TooManyRequestsError(rate_limit, rate_reset)
+            raise TooManyRequestsError(rate_limit, rate_reset)
         else:
-            raise errors.HttpError(http_code, str(http_code)+" : an error has occurred")
+            raise HttpError(http_code, str(http_code)+" : an error has occurred")
 
     def _render_user_agent(self):
         return 'agile-pay/python/%s python-version:%s os:%s' % (
@@ -164,7 +168,11 @@ class Client:
 
     def _sign_request(self, method, url, body=''):
         concat = method.upper() + url + body + str(int(time()))
-        signer = hmac.new(self._config['api_secret'], b64encode(concat), sha256)
+        secret = self._config['api_secret']
+        if (sys.version_info > (3, 0)):
+            secret = bytes(secret, 'utf-8')
+            concat = bytes(concat, 'utf-8')
+        signer = hmac.new(secret, b64encode(concat), sha256)
         return signer.hexdigest()
 
     def _get_base_uri(self):
@@ -173,13 +181,13 @@ class Client:
     def _validate_config(self, config):
         required = ['api_key', 'api_secret', 'environment']
         for field in required:
-            if not config.has_key(field) or len(config[field]) < 1:
-                raise errors.ConfigurationError('Missing required configuration field : '+field)
+            if field not in field or len(config[field]) < 1:
+                raise ConfigurationError('Missing required configuration field : '+field)
 
         if not config['environment'] in [
             ENV_LOCAL,
             ENV_TESTING,
             ENV_PRODUCTION
         ]:
-            raise errors.ConfigurationError('Invalid environment : '+config['environment'])
+            raise ConfigurationError('Invalid environment : '+config['environment'])
 

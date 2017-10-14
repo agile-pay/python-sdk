@@ -13,6 +13,17 @@ class Gateway:
         self._client = client
         self._reference = reference
 
+    def set_reference(self, reference):
+        """
+        Set the gateway reference
+
+        :param reference:
+        :type reference: str
+        :return: self
+        """
+        self._reference = reference
+        return self
+
     def get(self):
         """
         Get a gateway

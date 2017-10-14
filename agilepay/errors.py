@@ -1,7 +1,7 @@
 import json
 import datetime
 
-from helpers import is_json, json_to_dict
+from .helpers import is_json, json_to_dict
 
 
 class ConfigurationError(Exception):

@@ -1,4 +1,4 @@
-import resources
+from .resources import *
 
 from .client import Client
 
@@ -20,7 +20,7 @@ class AgilePay:
         :return:
         :rtype: agilepay.resources.Credit
         """
-        return resources.Credit(self._client)
+        return Credit(self._client)
 
     def gateway(self, reference=None):
         """
@@ -30,7 +30,7 @@ class AgilePay:
         :return: the gateway resource
         :rtype: agilepay.resources.Gateway
         """
-        return resources.Gateway(self._client, reference)
+        return Gateway(self._client, reference)
 
     def webhook(self, reference=None):
         """
@@ -40,7 +40,7 @@ class AgilePay:
         :return: the webhook resource
         :rtype: agilepay.resources.Webhook
         """
-        return resources.Webhook(self._client, reference)
+        return Webhook(self._client, reference)
 
     def schedule(self, reference=None):
         """
@@ -50,7 +50,7 @@ class AgilePay:
         :return: the schedule resource
         :rtype: agilepay.resources.Schedule
         """
-        return resources.Schedule(self._client, reference)
+        return Schedule(self._client, reference)
 
     def transaction(self, reference=None):
         """
@@ -60,7 +60,7 @@ class AgilePay:
         :return: the transaction resource
         :rtype: agilepay.resources.Transaction
         """
-        return resources.Transaction(self._client, reference)
+        return Transaction(self._client, reference)
 
     def payment_method(self, token=None):
         """
@@ -71,7 +71,7 @@ class AgilePay:
         :return: the payment method resource
         :rtype: agilepay.resources.PaymentMethod
         """
-        return resources.PaymentMethod(self._client, token)
+        return PaymentMethod(self._client, token)
 
     def transaction_schedule(self, reference=None):
         """
@@ -82,4 +82,4 @@ class AgilePay:
         :return: the transaction schedule resource
         :rtype: agilepay.resources.TransactionSchedule
         """
-        return resources.TransactionSchedule(self._client, reference)
+        return TransactionSchedule(self._client, reference)
