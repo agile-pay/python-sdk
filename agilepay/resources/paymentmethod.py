@@ -18,6 +18,17 @@ class PaymentMethod:
             'keep': False
         }
 
+    def set_token(self, token):
+        """
+        Set the payment method token
+
+        :param token:
+        :type token: str
+        :return: self
+        """
+        self._token = token
+        return self
+
     def keep(self, val=True):
         """
         Retain the payment method in agilepay
