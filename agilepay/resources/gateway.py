@@ -29,6 +29,7 @@ class Gateway:
         Get a gateway
 
         :return: Response
+        :rtype: agilepay.responses.Response
         """
         return self._client.get('gateway/%s' % self._reference)
 
