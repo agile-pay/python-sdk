@@ -35,6 +35,14 @@ class PaginatedResponse:
         self._client = client
         self._response = response
 
+    def get_response(self):
+        """
+        Get the raw response object
+        :return:
+        :rtype : agilepay.responses.Response
+        """
+        return self._response
+
     def get_data(self):
         """
         Get the paginated response data excluding pagination information
