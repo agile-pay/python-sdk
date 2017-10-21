@@ -57,7 +57,7 @@ class Webhook:
         :return:
         :rtype: agilepay.responses.Response
         """
-        return self._client.put('webhook/%s/update' % self._reference, {
+        return self._client.put('webhooks/%s' % self._reference, {
             'body' : data
         })
 

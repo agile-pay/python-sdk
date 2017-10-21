@@ -106,3 +106,12 @@ class TransactionSchedule:
                 'transaction_data': data
             }, not_mandatory)
         })
+
+    def delete(self):
+        """
+        Delete a scheduled transaction
+
+        :return:
+        :rtype: agilepay.responses.Response
+        """
+        return self._client.delete('transaction-schedules/%s' % self._reference)

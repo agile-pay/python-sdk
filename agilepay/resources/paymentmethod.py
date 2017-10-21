@@ -45,7 +45,7 @@ class PaymentMethod:
 
         :return: Response
         """
-        return self._client.get('payment-method/%s' % self._token)
+        return self._client.get('payment-methods/%s' % self._token)
 
     def get_list(self, options={}):
         """

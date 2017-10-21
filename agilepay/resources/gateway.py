@@ -31,7 +31,7 @@ class Gateway:
         :return: Response
         :rtype: agilepay.responses.Response
         """
-        return self._client.get('gateway/%s' % self._reference)
+        return self._client.get('gateways/%s' % self._reference)
 
     def get_list(self, options={}):
         """
@@ -81,6 +81,6 @@ class Gateway:
         :param body:
         :return: Response
         """
-        return self._client.put('gateway/%s/update' % self._reference, {
+        return self._client.put('gateways/%s' % self._reference, {
             'body': body
         })

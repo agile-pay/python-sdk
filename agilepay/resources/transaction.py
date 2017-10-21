@@ -51,7 +51,7 @@ class Transaction:
         :return: the response
         :rtype: agilepay.responses.Response
         """
-        return self._client.get('transaction/%s' % self._reference)
+        return self._client.get('transactions/%s' % self._reference)
 
     def get_list(self, options={}):
         """
@@ -100,7 +100,7 @@ class Transaction:
 
         body = dicts_merge(body, data)
 
-        return self._client.post('transaction/auth', {'body': body})
+        return self._client.post('transactions/auth', {'body': body})
 
     def void(self):
         """
@@ -111,7 +111,7 @@ class Transaction:
         :return:
         :rtype: agilepay.responses.Response
         """
-        return self._client.post('transaction/%s/void' % self._reference)
+        return self._client.post('transactions/%s/void' % self._reference)
 
     def capture(self, amount=None, currency=None):
         """
@@ -132,7 +132,7 @@ class Transaction:
         if currency is not None:
             body['currency_code'] = currency
 
-        return self._client.post('transaction/%s/capture' % self._reference, {
+        return self._client.post('transactions/%s/capture' % self._reference, {
             'body': body
         })
 
@@ -155,6 +155,6 @@ class Transaction:
         if currency is not None:
             body['currency_code'] = currency
 
-        return self._client.post('transaction/%s/credit' % self._reference, {
+        return self._client.post('transactions/%s/credit' % self._reference, {
             'body': body
         })
