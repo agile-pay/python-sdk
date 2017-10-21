@@ -92,6 +92,19 @@ class Client:
         """
         return self.request('put', uri, options)
 
+    def delete(self, uri, options={}):
+        """
+        Make a delete request to the agilepay service
+
+        :param uri:
+        :type uri: str
+        :param options:
+        :type options: dict
+        :return: Response
+        :rtype: agilepay.responses.Response
+        """
+        return self.request('delete', uri, options)
+
     def request(self, method, uri, options = {}):
         """
         Make an http request to the agilepay service
