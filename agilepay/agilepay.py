@@ -42,6 +42,16 @@ class AgilePay:
         """
         return Webhook(self._client, reference)
 
+    def customer(self, reference=None):
+        """
+        Access the customer resource
+
+        :param reference:
+        :return: the customer resource
+        :rtype: agilepay.resources.Webhook
+        """
+        return Customer(self._client, reference)
+
     def schedule(self, reference=None):
         """
         Access the schedule resource
