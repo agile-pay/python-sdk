@@ -10,6 +10,7 @@ try:
 except ImportError:
     from urllib.parse import urlencode
 from base64 import b64encode
+from collections import OrderedDict
 
 # internal module imports
 from .errors import *
@@ -127,6 +128,7 @@ class Client:
         # initializing full url
         url = self._get_base_uri()+uri
         if 'query' in options:
+            options['query'] = OrderedDict(sorted(options['query'].items()))
             url += "?%s" % urlencode(options['query'])
 
         if 'headers'not in options:
