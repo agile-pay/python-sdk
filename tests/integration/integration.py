@@ -1,3 +1,4 @@
+import os
 import random
 import datetime
 
@@ -16,9 +17,9 @@ class ResourceTestCase(BaseTestCase):
         """
         super(ResourceTestCase, self).setUp()
         self.client = Client({
-            'api_key': 'key',
-            'api_secret': 'secret',
-            'environment': 'testing'
+            'api_key': os.environ['API_KEY'],
+            'api_secret': os.environ['API_SECRET'],
+            'environment': os.environ['API_ENVIRONMENT']
         })
 
 
